@@ -6,10 +6,13 @@ reasons.
 
 ## GoodWatch10
 
-This design is working and verified.  Use this one!
-
+This is an older no-radio design that is working and verified.
 
 ## GoodWatch20
+
+This design is working and verified.  Use this one!
+
+## GoodWatch21
 
 This design is a work in progress.  It is not yet finalized and you
 really shouldn't try to build it until it's ready.  You've been
