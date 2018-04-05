@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+from glob import glob
+from os import system, path
+from argparse import ArgumentParser
+
+bin_dir = path.dirname(__file__)
+vis_diff = path.join(bin_dir, 'vis_diff.sh')
+
+
+def run(f):
+    print(f)
+    system(f)
+
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument('-f', '--first', default='20')
+    parser.add_argument('-s', '--second', default='21')
+    args = parser.parse_args()
+    dfirst = path.join('hardware', f'goodwatch{args.first}', 'gerbers')
+    dsecond = path.join('hardware', f'goodwatch{args.second}', 'gerbers')
+    first = glob(path.join(dfirst, '*'))
+    second = glob(path.join(dsecond, '*'))
+    first_seconds = [x.replace(args.first, args.second) for x in first]
+    for f in sorted(set(second) - set(first_seconds)):
+        print("new file in second left out of comparison: {f}")
+    for file1, file2 in zip(first, first_seconds):
+        run(f'{vis_diff} {file1} {file2}')
+
